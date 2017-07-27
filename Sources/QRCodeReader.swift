@@ -31,16 +31,12 @@ import AVFoundation
 public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegate {
   var defaultDevice: AVCaptureDevice = .defaultDevice(withMediaType: AVMediaTypeVideo)
   var frontDevice: AVCaptureDevice?  = {
-    if #available(iOS 10, *) {
-      return AVCaptureDevice.defaultDevice(withDeviceType: .builtInWideAngleCamera, mediaType: AVMediaTypeVideo, position: .front)
-    }
-    else {
+    
       for device in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) {
         if let _device = device as? AVCaptureDevice , _device.position == AVCaptureDevicePosition.front {
           return _device
         }
       }
-    }
 
     return nil
   }()
